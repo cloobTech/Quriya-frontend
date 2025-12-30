@@ -1,0 +1,25 @@
+# Node
+node_modules/
+dist/
+.build/
+.vite/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env files
+.env
+.env.*
+!.env.example  # Good practice: keep an example
+.env.development
+.env.uat
+# IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
