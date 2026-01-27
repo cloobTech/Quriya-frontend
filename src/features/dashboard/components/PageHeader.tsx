@@ -1,14 +1,18 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { theme } from "@src/theme";
 import { Button, Badge } from "@mantine/core";
 import { BsArrowRepeat, BsDot } from "react-icons/bs";
+import { getPageTitle, getPageSubtitle } from "@features/shared";
 
 const PageHeader = () => {
+  const location = useLocation();
+
   return (
     <div className="flex justify-between items-center px-6 py-4">
       <div>
         <div className="flex items-center gap-4">
-          <p className="font-semibold">Dashboard Overview</p>
+          <p className="font-semibold">{getPageTitle(location.pathname)}</p>
           <Badge
             tt={"none"}
             leftSection={<BsDot size={24} />}
@@ -27,7 +31,7 @@ const PageHeader = () => {
           </Badge>
         </div>
         <small className="text-gray-500">
-          Real-time election monitoring and management
+          {getPageSubtitle(location.pathname)}
         </small>
       </div>
       <div className="flex items-center gap-4">

@@ -1,10 +1,11 @@
 import { jwtDecode } from "jwt-decode";
+import type { UserRoleType } from "../constants";
 
 type JwtDecodeResponse = {
   exp: number;
   organization_id: string;
   user_id: string;
-  user_role: string;
+  user_role: UserRoleType;
 };
 
 export const decodeJwt = (token: string) => {

@@ -4,12 +4,12 @@ import { Button, Badge, Avatar } from "@mantine/core";
 
 const Notification = () => {
   return (
-    <div className="snap border-b border-gray-200 py-2 px-4 flex items-center justify-between hover:bg-gray-50 rounded-md">
-      <div className="flex items-center gap-3">
-        <Avatar size="lg" radius="xl" className="mr-2" />
-        <p className="text-sm grid gap-1">
-          <span className="font-semibold text-dark">John Doe</span>
-          <span className="text-gray-500 text-xs">ward 7, unit 001</span>
+    <div className="snap border-b border-gray-200 py-2 px-4 flex items-center justify-between hover:bg-gray-50 cursor-pointer">
+      <div className="flex items-center gap-2">
+        <Avatar size="md" radius="xl" className="mr-2" />
+        <p className="text-sm grid gap-[2px]">
+          <span className="font-semibold text-dark text-xs">John Doe</span>
+          <span className="text-gray-500 text-[10px]">ward 7, unit 001</span>
           <Badge
             tt={"none"}
             radius={"xl"}

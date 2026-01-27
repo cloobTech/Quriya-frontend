@@ -5,7 +5,7 @@ import { BsFiletypeCsv, BsX, BsCheck } from "react-icons/bs";
 
 const AddUsersToAnOrganizationViaImport = (props: Partial<DropzoneProps>) => {
   return (
-    <div className="bg-white size-80 rounded-2xl p-2 px-4 text-sm grid">
+    <div className="bg-white size-80 rounded-2xl p-4 text-sm grid">
       <p className="font-semibold text-center">Upload CSV / Excel</p>
       <Dropzone
         onDrop={(files) => console.log("accepted files", files)}

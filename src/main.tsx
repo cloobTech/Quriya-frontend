@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
+import 'leaflet/dist/leaflet.css';
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import "@mantine/notifications/styles.css";

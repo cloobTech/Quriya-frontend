@@ -1,17 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-
-// Remember to use an enum instead for userRole
-// and should be fetched from the backend
+import type { UserRoleType } from "@features/shared";
 
 type OrganizationState = {
   organizationId: string;
-  userRole: string;
+  userRole: UserRoleType | null;
 };
 
 const initialState: OrganizationState = {
   organizationId: "",
-  userRole: "",
+  userRole: null,
 };
 
 const organizationSlice = createSlice({

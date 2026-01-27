@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../services/api";
 import { setToken } from "@features/auth";
 import { setOrganization } from "@features/organization";
@@ -7,6 +7,7 @@ import {
   useAppDispatch,
   showApiError,
   organizationDataFromToken,
+  UserRole,
 } from "@features/shared";
 import { useForm } from "@mantine/form";
 import {
@@ -21,8 +22,6 @@ import googleIcon from "../assets/7123025_logo_google_g_icon.svg";
 
 const LoginUser: React.FC = () => {
   const [login, { isLoading, error }] = useLoginMutation();
-  const location = useLocation();
-  const from = location?.state?.from?.pathname || "/redirect";
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -42,28 +41,39 @@ const LoginUser: React.FC = () => {
   });
 
   const handleSubmit = async (values: { email: string; password: string }) => {
-    const credentials = { ...values };
-
     try {
-      const response = await login(credentials).unwrap();
+      const response = await login(values).unwrap();
+
       if (response.token) {
+        // Save token in Redux
         dispatch(setToken(response.token));
+
+        // Decode org info from token
         const organizationData = organizationDataFromToken(response.token);
-        if (organizationData?.organizationId && organizationData?.userRole) {
-          dispatch(
-            setOrganization({
-              organizationId: organizationData.organizationId,
-              userRole: organizationData.userRole,
-            })
-          );
+        if (!organizationData?.organizationId || !organizationData?.userRole) {
+          throw new Error("Invalid token: missing org data");
         }
 
-        navigate(from, { replace: true });
+        const { organizationId, userRole } = organizationData;
+
+        // Store org info in Redux
+        dispatch(setOrganization({ organizationId, userRole }));
+
+        // Redirect user based on role
+        if (Object.values(UserRole).includes(userRole)) {
+          navigate(`/organization/add-users`, {
+            replace: true,
+          });
+        } else {
+          const err = new Error("You are not authorized to access this page");
+          err.name = "Unauthorized";
+          throw err;
+        }
       }
 
       form.reset();
     } catch (err: any) {
-      showApiError(err.data || err);
+      showApiError(err.data ?? err);
     }
   };
 

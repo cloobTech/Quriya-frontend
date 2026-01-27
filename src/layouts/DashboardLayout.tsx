@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import SideBar from "../components/SideBar";
-import Navbar from "../components/Navbar";
+import { SideBar, Navbar, PageHeader } from "@features/dashboard";
 import { Outlet } from "react-router-dom";
-import PageHeader from "../components/PageHeader";
+
 // import { useNavbar } from "@src/index";
 
 const DashbordLayout: React.FC = () => {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import BottomSideLinks from "@features/dashboard/components/BottomSideLinks";
-import TopSideLinks from "@features/dashboard/components/TopSideLinks";
+import OrgAdminTopLinks from "@features/dashboard/components/OrgAdminTopLinks";
+import quriyaLogo from "@src/assets/quriya-logo.svg";
 import { FiX } from "react-icons/fi";
-// import Logo from "../assets/a.svg";
 
 const SideBar: React.FC<{
   isExpanded: boolean;
@@ -25,9 +25,9 @@ const SideBar: React.FC<{
 
   return (
     <div
-      className={`z-10 relative bg-gray-100 flex flex-col justify-between transition-all duration-300 ${
-        isExpanded ? "w-64" : "w-16"
-      } `}
+      className={`z-10 relative bg-gray-100 flex flex-col justify-between transition-all duration-300 
+        ${isExpanded ? "w-64" : "w-16"}
+       `}
     >
       <div
         style={{
@@ -48,10 +48,16 @@ const SideBar: React.FC<{
           }`}
         >
           {isExpanded ? (
-            <FiX size={16} />
+            <FiX
+              size={16}
+              className="transition-opacity duration-300 opacity-100"
+            />
           ) : (
-            // <img src={Logo} alt="Omniqle Logo" className="h-5 w-auto " />
-            "L"
+            <img
+              src={quriyaLogo}
+              alt="Quriya Logo"
+              className="h-5 w-auto transition-opacity duration-300 opacity-100"
+            />
           )}
         </button>
 
@@ -65,7 +71,7 @@ const SideBar: React.FC<{
 
         {/* Top Links */}
         <div className="mt-4">
-          <TopSideLinks isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+          <OrgAdminTopLinks isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
         </div>
 
         {/* Bottom Links */}

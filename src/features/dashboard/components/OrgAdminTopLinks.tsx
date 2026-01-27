@@ -6,6 +6,7 @@ import {
   BsPeople,
   BsExclamationTriangle,
   BsFileEarmarkText,
+  BsPinMapFill,
 } from "react-icons/bs";
 import type { SideLinkProps } from "../types";
 
@@ -29,7 +30,7 @@ const AdminTopSideLinks: React.FC<SideLinkProps> = ({
       {/* Links */}
       <NavLink
         onClick={() => setIsExpanded(false)}
-        to="/dashboard"
+        to="dashboard"
         className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
         end
         title="dashboard"
@@ -45,9 +46,26 @@ const AdminTopSideLinks: React.FC<SideLinkProps> = ({
       </NavLink>
       <NavLink
         onClick={() => setIsExpanded(false)}
-        to="/dashboard/students"
+        to="location-coverage"
         className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
-        title="students"
+        end
+        title="location-coverage"
+      >
+        <div className="flex items-center gap-2">
+          <BsPinMapFill size={12} />
+          <span
+            className={`text-xs transition-all duration-300 overflow-hidden ${expandCollapseClass}`}
+          >
+            Location Coverage
+          </span>
+        </div>
+      </NavLink>
+
+      <NavLink
+        onClick={() => setIsExpanded(false)}
+        to="agents"
+        className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
+        title="agents"
       >
         <div className="flex items-center gap-2">
           <BsPeople size={12} />
@@ -60,9 +78,9 @@ const AdminTopSideLinks: React.FC<SideLinkProps> = ({
       </NavLink>
       <NavLink
         onClick={() => setIsExpanded(false)}
-        to="/dashboard/classrooms"
+        to="polling-units"
         className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
-        title="classrooms"
+        title="polling-units"
       >
         <div className="flex items-center gap-2">
           <BsGeoAlt size={12} />
@@ -100,7 +118,7 @@ const AdminTopSideLinks: React.FC<SideLinkProps> = ({
           <span
             className={`text-xs transition-all duration-300 overflow-hidden ${expandCollapseClass}`}
           >
-          Results
+            Results
           </span>
         </div>
       </NavLink>

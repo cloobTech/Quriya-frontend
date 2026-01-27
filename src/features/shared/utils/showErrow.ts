@@ -1,6 +1,7 @@
 import { notifications } from "@mantine/notifications";
 
 export function showApiError(errorData: any) {
+  // console.log(errorData);
   if (Array.isArray(errorData?.errors)) {
     errorData.errors.forEach((errorMsg: string) => {
       notifications.show({
@@ -13,7 +14,17 @@ export function showApiError(errorData: any) {
   } else if (typeof errorData?.error === "string") {
     notifications.show({
       position: "top-right",
-      // title: errorData.error,
+      title: errorData.error
+        .replace(/_/g, " ")
+        .toLowerCase()
+        .replace(/\b\w/g, (char: string) => char.toUpperCase()),
+      message: errorData.message,
+      color: "red",
+    });
+  } else if (typeof errorData?.name === "string") {
+    notifications.show({
+      position: "top-right",
+      title: errorData.name,
       message: errorData.message,
       color: "red",
     });

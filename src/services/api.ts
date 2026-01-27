@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "@src/constants";
 import type { RootState } from "@src/context/store";
+import { TagTypes } from "@features/shared";
 
 export const baseApi = createApi({
   reducerPath: "api",
@@ -16,6 +17,6 @@ export const baseApi = createApi({
       return headers;
     },
   }),
-  // tagTypes: ["Grades", "Verification", "Student", "Calendar"],
+  tagTypes: Object.values(TagTypes),
   endpoints: () => ({}),
 });
