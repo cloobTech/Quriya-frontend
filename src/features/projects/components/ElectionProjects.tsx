@@ -7,7 +7,9 @@ import {
   useAppSelector,
   RenderListItems,
   timeLeft,
+  ElectionStatusMeta,
 } from "@features/shared";
+import type { ElectionStatusType } from "@features/shared";
 import CreateNewProject from "../forms/CreateNewProject";
 import { useGetProjectsQuery } from "../services/api";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +21,7 @@ const ElectionProject = ({
   election_date: electionDate,
 }: {
   name: string;
-  status: string;
+  status: ElectionStatusType;
   id: string;
   election_date: string;
 }) => {
@@ -36,9 +38,13 @@ const ElectionProject = ({
           radius={"xl"}
           size="xs"
           variant="light"
-          color={status === "draft" ? "blue" : "green"}
+          color={ElectionStatusMeta[status].color}
         >
-          {timeLeft({ endTime: new Date(electionDate) })}
+          {[ElectionStatusMeta.scheduled.label].includes(
+            ElectionStatusMeta[status].label,
+          )
+            ? `${timeLeft({ endTime: new Date(electionDate) })} to election`
+            : ElectionStatusMeta[status].label}
         </Badge>
       </div>
       <div className="flex items-center gap-2 text-gray-600 text-sm">
@@ -93,7 +99,7 @@ const ElectionProjects: React.FC = () => {
               data={projects}
               renderItem={(items: {
                 name: string;
-                status: string;
+                status: ElectionStatusType;
                 id: string;
                 election_date: string;
               }) => <ElectionProject {...items} key={items.id} />}

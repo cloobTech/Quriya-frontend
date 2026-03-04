@@ -44,7 +44,7 @@ const AdminTopSideLinks: React.FC<SideLinkProps> = ({
           </span>
         </div>
       </NavLink>
-      <NavLink
+      {/* <NavLink
         onClick={() => setIsExpanded(false)}
         to="location-coverage"
         className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
@@ -59,7 +59,7 @@ const AdminTopSideLinks: React.FC<SideLinkProps> = ({
             Location Coverage
           </span>
         </div>
-      </NavLink>
+      </NavLink> */}
 
       <NavLink
         onClick={() => setIsExpanded(false)}
@@ -93,25 +93,9 @@ const AdminTopSideLinks: React.FC<SideLinkProps> = ({
       </NavLink>
       <NavLink
         onClick={() => setIsExpanded(false)}
-        to="/dashboard/employees"
+        to="results"
         className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
-        title="employees"
-      >
-        <div className="flex items-center gap-2">
-          <BsExclamationTriangle size={12} />
-          <span
-            className={`text-xs transition-all duration-300 overflow-hidden ${expandCollapseClass}`}
-          >
-            Incidents
-          </span>
-        </div>
-      </NavLink>
-
-      <NavLink
-        onClick={() => setIsExpanded(false)}
-        to="/dashboard/attendance"
-        className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
-        title="attendance"
+        title="results"
       >
         <div className="flex items-center gap-2">
           <BsFileEarmarkText size={12} />
@@ -119,6 +103,21 @@ const AdminTopSideLinks: React.FC<SideLinkProps> = ({
             className={`text-xs transition-all duration-300 overflow-hidden ${expandCollapseClass}`}
           >
             Results
+          </span>
+        </div>
+      </NavLink>
+      <NavLink
+        onClick={() => setIsExpanded(false)}
+        to="incident-report"
+        className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
+        title="incident-report"
+      >
+        <div className="flex items-center gap-2">
+          <BsExclamationTriangle size={12} />
+          <span
+            className={`text-xs transition-all duration-300 overflow-hidden ${expandCollapseClass}`}
+          >
+            Incidents
           </span>
         </div>
       </NavLink>

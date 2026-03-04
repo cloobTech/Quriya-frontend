@@ -12,6 +12,10 @@ import {
 } from "@features/location_coverage";
 import { Agents } from "@features/agents";
 import { PollingUnit, PollingUnitDetails } from "@features/polling_units";
+import { Result } from "@features/results";
+import { Incident } from "@features/incidents";
+import { Settings } from "@features/settings";
+import { Notification } from "@features/notifications";
 
 export const routers = createBrowserRouter([
   {
@@ -55,8 +59,24 @@ export const routers = createBrowserRouter([
             element: <PollingUnit />,
           },
           {
-            path: "polling-units/:pollingUnitId/details",
+            path: "polling-units/:pollingUnitId",
             element: <PollingUnitDetails />,
+          },
+          {
+            path: "results",
+            element: <Result />,
+          },
+          {
+            path: "incident-report",
+            element: <Incident />,
+          },
+          {
+            path: "settings",
+            element: <Settings />,
+          },
+          {
+            path: "notifications",
+            element: <Notification />,
           },
         ],
       },

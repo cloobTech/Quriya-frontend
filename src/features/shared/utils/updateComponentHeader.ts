@@ -15,6 +15,14 @@ export const getPageTitle = (pathname: string): string => {
       return "Dashboard Overview";
     case "details":
       return "Polling Unit Details";
+    case "results":
+      return "Results Overview";
+    case "incident-report":
+      return "Incident Report";
+    case "settings":
+      return "Settings Management";
+    case "notifications":
+      return "Notifications";
     default:
       return "Welcome";
   }
@@ -34,6 +42,14 @@ export const getPageSubtitle = (pathname: string): string => {
       return "Real-time election monitoring and management";
     case "details":
       return "View and manage polling units results and agent";
+    case "results":
+      return "View and manage election results in real time";
+    case "incident-report":
+      return "View  election incident reports";
+    case "settings":
+      return "Manage election settings";
+    case "notifications":
+      return "Manage notifications";
     default:
       return "The administrative management portal";
   }

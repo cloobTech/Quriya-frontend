@@ -40,7 +40,23 @@ export const pollingUnitApi = baseApi.injectEndpoints({
       }),
       providesTags: [TagTypes.POLLING_UNIT],
     }),
+    getSinglePollingUnit: builder.query({
+      query: ({
+        organizationId,
+        projectId,
+        pollingUnitId,
+      }: {
+        organizationId: string;
+        projectId: string;
+        pollingUnitId: string;
+      }) => ({
+        url: `organizations/${organizationId}/projects/${projectId}/coverage/polling-units/${pollingUnitId}`,
+        method: "GET",
+      }),
+      providesTags: [TagTypes.POLLING_UNIT],
+    }),
   }),
 });
 
-export const { useGetDetailedPollingUnitsQuery } = pollingUnitApi;
+export const { useGetDetailedPollingUnitsQuery, useGetSinglePollingUnitQuery } =
+  pollingUnitApi;

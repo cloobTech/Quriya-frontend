@@ -1,68 +1,182 @@
 import React from "react";
 import { BarChart } from "@mantine/charts";
-import { BsArrowRepeat, BsBarChart } from "react-icons/bs";
-import { Button } from "@mantine/core";
+import { BsBarChart, BsArrowRepeat, BsTrophy } from "react-icons/bs";
+import { Button, Box, Text, Badge, Paper, Group, Stack } from "@mantine/core";
+import { theme } from "@src/theme";
 
-// const data = [
-//   {
-//     label: "Votes",
-//     LP: 4000,
-//     PDP: 3000,
-//     APC: 2000,
-//     Other: 2780,
-//   },
-// ];
-
-export const data = [
-  { month: "January", Smartphones: 1200, Laptops: 900, Tablets: 200 },
-  { month: "February", Smartphones: 1900, Laptops: 1200, Tablets: 400 },
-  { month: "March", Smartphones: 400, Laptops: 1000, Tablets: 200 },
-  { month: "April", Smartphones: 1000, Laptops: 200, Tablets: 800 },
-  { month: "May", Smartphones: 800, Laptops: 1400, Tablets: 1200 },
-  { month: "June", Smartphones: 750, Laptops: 600, Tablets: 1000 },
+// Restructured data for proper bar chart format
+const chartData = [
+  { party: "APC", votes: 12450, color: "#4CAF50" },
+  { party: "PDP", votes: 11820, color: "#F44336" },
+  { party: "LP", votes: 9620, color: "#009688" },
+  { party: "NNPP", votes: 3840, color: "#9C27B0" },
+  { party: "Others", votes: 620, color: "#757575" },
 ];
 
-const DashboardCharts: React.FC = () => {
+const DashboardElectionChart: React.FC = () => {
+  // Find leading party
+  const leadingParty = chartData.reduce((max, party) =>
+    party.votes > max.votes ? party : max,
+  );
+
+  // Calculate total votes for percentages
+  const totalVotes = chartData.reduce((sum, party) => sum + party.votes, 0);
+
   return (
-    <div className="grid gap-4 p-3 bg-white rounded-2xl ">
-      <div className="flex justify-between items-center">
-        <p className="text-dark text-lg font-bold flex items-center gap-2">
-          <BsBarChart size={20} /> Highest Vote count
-        </p>
+    <Paper
+      p="lg"
+      radius="xl"
+      shadow="sm"
+      bg="white"
+      withBorder
+      style={{ borderColor: "var(--mantine-color-gray-2)" }}
+    >
+      {/* Header with improved design */}
+      <Group justify="space-between" mb="lg">
+        <Group gap="xs">
+          <Box p={10} bg="blue.0" style={{ borderRadius: "12px" }}>
+            <BsBarChart size={22} color="var(--mantine-color-blue-7)" />
+          </Box>
+          <div>
+            <Text fw={700} size="lg">
+              Election Results
+            </Text>
+            <Text size="sm" c="dimmed">
+              Total votes by political party
+            </Text>
+          </div>
+        </Group>
         <Button
-          radius="xl"
-          size="xs"
+          radius="lg"
           variant="light"
           leftSection={<BsArrowRepeat size={16} />}
+          size="sm"
+          style={{ fontWeight: 500 }}
         >
           Refresh Data
         </Button>
-      </div>
-      <div className="relative">
+      </Group>
+
+      {/* Leading party highlight */}
+      <Paper p="md" radius="lg" mb="lg" withBorder className="bg-gray-100/50!">
+        <Group gap="sm" align="center">
+          <Box
+            p={8}
+            bg={theme?.colors?.primary?.[1] ?? "gray"}
+            style={{ borderRadius: "50%" }}
+          >
+            <BsTrophy size={18} color={theme?.colors?.primary?.[5] ?? "gray"} />
+          </Box>
+          <Stack gap={2}>
+            <Text fw={600} size="sm">
+              Current Leader
+            </Text>
+            <Group gap="xs" align="center">
+              <Badge
+                size="lg"
+                radius="md"
+                color={theme?.colors?.primary?.[5] ?? "gray"}
+                variant="filled"
+                leftSection={
+                  <Box
+                    w={10}
+                    h={10}
+                    bg="white"
+                    style={{ borderRadius: "50%" }}
+                  />
+                }
+              >
+                {leadingParty.party}
+              </Badge>
+              <Text fw={700} size="xl">
+                {leadingParty.votes.toLocaleString()}
+              </Text>
+              <Text c="dimmed" size="sm">
+                ({((leadingParty.votes / totalVotes) * 100).toFixed(1)}%)
+              </Text>
+            </Group>
+          </Stack>
+        </Group>
+      </Paper>
+
+      {/* Bar Chart with improved styling */}
+      <Box h={320}>
         <BarChart
-          h={400}
-          data={data}
-          dataKey="month"
-          tooltipAnimationDuration={200}
-          valueFormatter={(value) =>
-            new Intl.NumberFormat("en-US").format(value)
-          }
-          withBarValueLabel
-          withLegend
-          tooltipProps={{
-            cursor: { fill: "#f0f0f0" },
-          }}
-          styles={{
-            legend: {
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "20px",
+          h="100%"
+          data={chartData}
+          dataKey="party"
+          xAxisProps={{
+            tickMargin: 10,
+            tick: {
+              fontSize: 14,
+              fontWeight: 600,
             },
-            legendItem: {
-              display: "flex",
-              alignItems: "center",
-              marginRight: "15px",
-              gap: "4px",
+          }}
+          yAxisProps={{
+            tickMargin: 10,
+            tick: { fontSize: 12 },
+            domain: [0, Math.max(...chartData.map((d) => d.votes)) * 1.1],
+          }}
+          withBarValueLabel
+          valueFormatter={(value) =>
+            new Intl.NumberFormat("en-NG").format(value)
+          }
+          barProps={{
+            radius: [8, 8, 0, 0],
+            strokeWidth: 1,
+            stroke: "white",
+          }}
+          barChartProps={{
+            barSize: 65,
+          }}
+          tooltipAnimationDuration={200}
+          valueLabelProps={{
+            position: "top",
+            fill: "var(--mantine-color-gray-8)",
+            fontSize: 13,
+            fontWeight: 600,
+          }}
+          tooltipProps={{
+            cursor: { fill: "#d1d5db", opacity: 0.3 },
+            content: ({ payload }) => {
+              const data = payload?.[0]?.payload;
+              if (!data) return null;
+              const percentage = ((data.votes / totalVotes) * 100).toFixed(1);
+              return (
+                <Paper p="md" shadow="md" radius="md" withBorder>
+                  <Group>
+                    <Box
+                      w={12}
+                      h={12}
+                      style={{
+                        borderRadius: "4px",
+                        backgroundColor: data.color,
+                      }}
+                    />
+                    <div>
+                      <Text fw={700}>{data.party}</Text>
+                      <Text fw={600} size="lg">
+                        {data.votes.toLocaleString()} votes
+                      </Text>
+                      <Text size="sm" c="dimmed">
+                        {percentage}% of total
+                      </Text>
+                    </div>
+                  </Group>
+                </Paper>
+              );
+            },
+          }}
+          series={[
+            {
+              name: "votes",
+              color: "blue.6",
+              label: "Votes",
+            },
+          ]}
+          styles={{
+            root: {
+              padding: "10px 0",
             },
             tooltipBody: {
               backgroundColor: "#fcfcfc",
@@ -71,32 +185,72 @@ const DashboardCharts: React.FC = () => {
               padding: "8px",
               borderRadius: "8px",
             },
-            tooltipItem: {
-              display: "flex",
-              gap: "10px",
+            bar: {
+              transition: "all 0.3s ease",
+              "&:hover": {
+                transform: "scale(1.02)",
+                filter: "brightness(1.1)",
+              },
             },
-            tooltipItemBody: {
-              display: "flex",
-              height: "20px",
-              width: "130px",
+            legend: {
+              justifyContent: "center",
+              marginTop: "20px",
+              gap: "20px",
             },
-
-            tooltipItemColor: {
-              width: "20px",
-              marginTop: "3px",
+            legendItem: {
+              alignItems: "center",
+              gap: "8px",
+              fontSize: "13px",
+              padding: "6px 12px",
+              backgroundColor: "var(--mantine-color-gray-0)",
+              borderRadius: "8px",
             },
           }}
-          valueLabelProps={{ position: "inside", fill: "white" }}
-          legendProps={{ verticalAlign: "bottom", height: 50 }}
-          series={[
-            { name: "Smartphones", color: "violet.6" },
-            { name: "Laptops", color: "blue.6" },
-            { name: "Tablets", color: "teal.6" },
-          ]}
         />
-      </div>
-    </div>
+      </Box>
+
+      {/* Legend */}
+      <Group justify="center" mt="lg" gap="xs">
+        {chartData.map((item) => (
+          <Badge
+            key={item.party}
+            variant="light"
+            radius="lg"
+            size="md"
+            style={{
+              border: `1px solid var(--mantine-color-gray-3)`,
+              padding: "8px 12px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            leftSection={
+              <Box
+                w={10}
+                h={10}
+                style={{
+                  borderRadius: "50%",
+                  backgroundColor: item.color,
+                }}
+              />
+            }
+          >
+            <Text size="xs" fw={600} style={{ lineHeight: 1 }}>
+              {item.party}{" "}
+              <Text
+                component="span"
+                size="xs"
+                c="dimmed"
+                style={{ marginLeft: 4 }}
+              >
+                {((item.votes / totalVotes) * 100).toFixed(1)}%
+              </Text>
+            </Text>
+          </Badge>
+        ))}
+      </Group>
+    </Paper>
   );
 };
 
-export default DashboardCharts;
+export default DashboardElectionChart;

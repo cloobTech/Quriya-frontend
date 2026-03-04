@@ -65,7 +65,7 @@ const PollingUnitTable = () => {
       <Table.Tr
         key={unit.id}
         style={{ textTransform: "capitalize" }}
-        onDoubleClick={() => navigate(`${unit.id}/details`)}
+        onDoubleClick={() => navigate(`${unit.id}`)}
       >
         <Table.Td>
           <Text size="xs" tt="revert" style={{ textTransform: "capitalize" }}>

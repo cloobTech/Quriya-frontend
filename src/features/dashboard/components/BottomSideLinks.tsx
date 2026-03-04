@@ -26,7 +26,7 @@ const BottomSideLinks: React.FC<SideLinkProps> = ({
       {/* Links */}
       <NavLink
         onClick={() => setIsExpanded(false)}
-        to="/dashboard/settings"
+        to="settings"
         className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
       >
         <div className="flex items-center gap-2">
@@ -40,7 +40,7 @@ const BottomSideLinks: React.FC<SideLinkProps> = ({
       </NavLink>
       <NavLink
         onClick={() => setIsExpanded(false)}
-        to="/dashboard/supports"
+        to="notifications"
         className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
       >
         <div className="flex space-between gap-6">
@@ -57,7 +57,7 @@ const BottomSideLinks: React.FC<SideLinkProps> = ({
             radius="sm"
             style={{
               background: "#a3e452",
-              color: "#333"
+              color: "#333",
             }}
             className={`transition-all duration-300 overflow-hidden ${expandCollapseClass}`}
           >

@@ -10,7 +10,7 @@ const now = new Date();
 export const timeLeft = ({ endTime }: { endTime: Date }) => {
   const duration = intervalToDuration({ start: now, end: endTime });
   const formatted = formatDuration(duration, {
-    format: ["days", "hours", "minutes", "seconds"],
+    format: ["days", "hours",],
   });
   return formatted;
 };

@@ -20,3 +20,4 @@ export * from "./utils/formatDatetime";
 export * from "./utils/updateComponentHeader";
 export * from "./utils/params";
 export * from "./types/filters";
+export * from "./components/GridImageDisplay";
