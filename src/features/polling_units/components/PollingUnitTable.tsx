@@ -132,7 +132,7 @@ const PollingUnitTable = () => {
           <Button
             variant="subtle"
             size="xs"
-            onClick={() => navigate(`${unit.id}/details`)}
+            onClick={() => navigate(`${unit.id}`)}
           >
             View
           </Button>
